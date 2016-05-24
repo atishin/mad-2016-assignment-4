@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.example.tishinanton.mad2016assignment4.Activities.ChatActivity;
 import com.example.tishinanton.mad2016assignment4.Assignment4Application;
+import com.example.tishinanton.mad2016assignment4.DAL.MessagesRepository;
 import com.example.tishinanton.mad2016assignment4.Models.MessageModel;
 import com.example.tishinanton.mad2016assignment4.R;
 import com.google.android.gms.gcm.GcmListenerService;
@@ -33,7 +34,8 @@ public class MyGcmListenerService extends GcmListenerService {
         } else {
             sendNotification(bundle.toString());
         }
-
+        MessagesRepository repository = new MessagesRepository(this);
+        repository.add(message);
     }
 
     private void sendNotification(String message) {

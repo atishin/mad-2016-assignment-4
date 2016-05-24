@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.tishinanton.mad2016assignment4.Assignment4Application;
+import com.example.tishinanton.mad2016assignment4.DAL.MessagesRepository;
 import com.example.tishinanton.mad2016assignment4.Helpers.Constants;
 import com.example.tishinanton.mad2016assignment4.Models.GCMRequestModel;
 import com.example.tishinanton.mad2016assignment4.Models.MessageModel;
@@ -66,6 +67,11 @@ public class ChatActivity extends AppCompatActivity implements OnMessageRecieved
         sendButton = (Button) findViewById(R.id.activity_chat_sendButton);
 
         messages = new ArrayList<>();
+
+        MessagesRepository repository = new MessagesRepository(this);
+        for (MessageModel message : repository.get(10, 0)) {
+            messages.add(message);
+        }
         adapter = new ArrayAdapter<MessageModel>(this, android.R.layout.simple_expandable_list_item_1, messages);
         chatListView.setAdapter(adapter);
 
