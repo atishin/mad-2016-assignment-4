@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.tishinanton.mad2016assignment4.Adapters.ChatItemAdapter;
 import com.example.tishinanton.mad2016assignment4.Assignment4Application;
 import com.example.tishinanton.mad2016assignment4.DAL.MessagesRepository;
 import com.example.tishinanton.mad2016assignment4.Helpers.Constants;
@@ -56,7 +57,8 @@ public class ChatActivity extends AppCompatActivity implements OnMessageRecieved
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private boolean isReceiverRegistered = false;
     private ArrayList<MessageModel> messages;
-    private ArrayAdapter<MessageModel> adapter;
+    private ChatItemAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +68,17 @@ public class ChatActivity extends AppCompatActivity implements OnMessageRecieved
         chatMessageEditText = (EditText) findViewById(R.id.activity_chat_textMessageEditText);
         sendButton = (Button) findViewById(R.id.activity_chat_sendButton);
 
+        chatListView.setDivider(null);
+
         messages = new ArrayList<>();
 
         MessagesRepository repository = new MessagesRepository(this);
         for (MessageModel message : repository.get(10, 0)) {
             messages.add(message);
         }
-        adapter = new ArrayAdapter<MessageModel>(this, android.R.layout.simple_expandable_list_item_1, messages);
+        adapter = new ChatItemAdapter(this, messages);
         chatListView.setAdapter(adapter);
+        chatListView.smoothScrollToPosition(messages.size());
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
