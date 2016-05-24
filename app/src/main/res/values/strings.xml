@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MAD 2016 Assignment 4</string>
+    <string name="registerButtonString">Register</string>
+    <string name="activity_register_helpText">This name will be used for sending messages in chat</string>
+    <string name="activity_chat_sendButtonText">Send</string>
+</resources>
